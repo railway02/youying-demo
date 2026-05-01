@@ -5,7 +5,7 @@ function TechEvidence() {
     <details className="tech-evidence">
       <summary>
         <span>技术证据</span>
-        <small>证明这是感知-决策-生成闭环</small>
+        <small>看见有应如何把空位变成回应</small>
       </summary>
 
       <div className="tech-evidence-body">

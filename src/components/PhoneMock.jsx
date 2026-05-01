@@ -5,6 +5,7 @@ function PhoneMock({ state, onGlowClick, onActionClick }) {
   const hasImage = state !== STATES.IDLE
   const isGenerating = state === STATES.GENERATING
   const isDone = state === STATES.ECHO_DONE
+  const inputVariant = isDone ? 'input' : 'interactive'
 
   return (
     <section className="phone-area" aria-label="QQ 群聊手机模拟器">
@@ -21,21 +22,43 @@ function PhoneMock({ state, onGlowClick, onActionClick }) {
           </div>
         </div>
 
-        <div className="chat-window" aria-live="polite">
+        <div
+          className={`chat-window ${isDone ? 'has-echo' : ''}`}
+          aria-live="polite"
+        >
           <div className="time-divider">今天 12:18</div>
 
           {hasImage ? (
             <>
-              <div className="message-row outbound">
-                <div className="text-bubble">开饭。</div>
+              <div className="message-cluster outbound">
+                <div className="sender-name">我</div>
+                <div className="message-row outbound">
+                  <div className="text-bubble">开饭。</div>
+                </div>
+                <div className="message-row outbound image-row">
+                  <ChatImage
+                    state={state}
+                    variant={inputVariant}
+                    onGlowClick={onGlowClick}
+                    onActionClick={onActionClick}
+                  />
+                </div>
               </div>
-              <div className="message-row outbound image-row">
-                <ChatImage
-                  state={state}
-                  onGlowClick={onGlowClick}
-                  onActionClick={onActionClick}
-                />
-              </div>
+
+              {isDone ? (
+                <>
+                  <div className="chat-system is-done">
+                    林同学入画：坐你对面
+                  </div>
+                  <div className="message-row inbound echo-row">
+                    <div className="friend-avatar">林</div>
+                    <div className="echo-message">
+                      <div className="sender-name">林同学</div>
+                      <ChatImage state={state} variant="echo" />
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </>
           ) : (
             <div className="quiet-chat">群聊里还没有新图片</div>
@@ -44,12 +67,6 @@ function PhoneMock({ state, onGlowClick, onActionClick }) {
           {isGenerating ? (
             <div className="chat-system is-generating">
               正在把朋友的回应长进画面……
-            </div>
-          ) : null}
-
-          {isDone ? (
-            <div className="chat-system is-done">
-              林同学入画：坐你对面
             </div>
           ) : null}
         </div>

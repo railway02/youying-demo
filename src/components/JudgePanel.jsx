@@ -10,6 +10,11 @@ function JudgePanel({ state }) {
         <p className="section-label">评委解释区</p>
         <h2>{activeStep.title}</h2>
         <p>{activeStep.body}</p>
+        <div className="judge-tags" aria-label="产品关键词">
+          <span>QQ 群聊</span>
+          <span>空位点击</span>
+          <span>回响图</span>
+        </div>
       </div>
 
       <ol className="judge-steps">
