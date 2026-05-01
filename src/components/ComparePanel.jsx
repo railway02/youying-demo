@@ -2,18 +2,11 @@ import { STATES, compareItems, getStateIndex } from '../data/demoData'
 
 function ComparePanel({ state }) {
   const stateIndex = getStateIndex(state)
-  const imageSentIndex = getStateIndex(STATES.IMAGE_SENT)
-  const friendClickedIndex = getStateIndex(STATES.FRIEND_CLICKED)
   const echoDoneIndex = getStateIndex(STATES.ECHO_DONE)
-
-  const isInputReady = stateIndex >= imageSentIndex
-  const isActionReady = stateIndex >= friendClickedIndex
   const isEchoReady = stateIndex >= echoDoneIndex
 
   const isItemActive = (id) => {
-    if (id === 'input') return isInputReady
-    if (id === 'action') return isActionReady
-    return isEchoReady
+    return isEchoReady && Boolean(id)
   }
 
   return (

@@ -1,11 +1,11 @@
 import { assets } from '../data/demoData'
 
-function EchoImage({ visible }) {
+function EchoImage({ className = '' }) {
   return (
     <img
-      className={`echo-image ${visible ? 'is-visible' : ''}`}
+      className={className}
       src={assets.echo}
-      alt="朋友坐在对面的回响图"
+      alt="坐你对面的回响图"
     />
   )
 }

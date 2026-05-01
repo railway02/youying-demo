@@ -130,7 +130,7 @@ p {
 }
 
 .start-button:focus-visible,
-.affordance-hit:focus-visible,
+.image-response-button:focus-visible,
 .entry-menu button:focus-visible {
   outline: 3px solid rgba(38, 133, 255, 0.3);
   outline-offset: 3px;
@@ -327,14 +327,14 @@ p {
 
 .chat-window {
   position: relative;
-  min-height: 532px;
+  min-height: 560px;
   padding: 12px 12px 16px;
   overflow: hidden;
   background: #f1f3f6;
 }
 
 .chat-window.has-echo {
-  min-height: 552px;
+  min-height: 590px;
 }
 
 .time-divider,
@@ -365,11 +365,23 @@ p {
 }
 
 .message-cluster {
-  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 14px;
+}
+
+.message-cluster.outbound {
+  justify-content: flex-end;
 }
 
 .message-cluster .message-row {
   margin-top: 6px;
+}
+
+.message-content {
+  max-width: 236px;
+  min-width: 0;
 }
 
 .sender-name {
@@ -396,9 +408,13 @@ p {
   padding: 8px 12px;
   border-radius: 14px 14px 4px 14px;
   color: #17202b;
-  background: #dcecff;
+  background: #ffffff;
   box-shadow: none;
   font-size: 0.92rem;
+}
+
+.self-bubble {
+  background: #dcecff;
 }
 
 .image-row {
@@ -407,24 +423,27 @@ p {
 
 .chat-image-wrap {
   position: relative;
-  width: min(222px, 76vw);
+  width: min(204px, 70vw);
   aspect-ratio: 3 / 4;
 }
 
+.chat-image-interactive {
+  width: 204px;
+}
+
 .chat-image-input {
-  width: 126px;
+  width: 108px;
 }
 
 .chat-image-echo {
-  width: 196px;
+  width: 180px;
 }
 
 .chat-image-echo .chat-image {
   animation: echoFadeIn 650ms ease both;
 }
 
-.chat-image,
-.echo-image {
+.chat-image {
   width: 100%;
   height: 100%;
   border: 1px solid rgba(31, 41, 51, 0.08);
@@ -433,104 +452,37 @@ p {
   box-shadow: 0 4px 12px rgba(31, 41, 51, 0.08);
 }
 
-.echo-image {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 650ms ease;
-  z-index: 4;
-}
-
-.echo-image.is-visible {
-  opacity: 1;
-}
-
-.affordance-glow {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  pointer-events: none;
-}
-
-.affordance-mask {
-  position: absolute;
-  inset: 0;
+.image-response-button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
   border-radius: 14px 14px 5px 14px;
-  background: rgba(226, 146, 76, 0.16);
-  filter: blur(2px);
-  opacity: 0.18;
-  pointer-events: none;
-  -webkit-mask-image: var(--mask-image);
-  mask-image: var(--mask-image);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  animation: breatheMask 2100ms ease-in-out infinite;
-}
-
-.affordance-hit {
-  position: absolute;
-  top: 32%;
-  left: 55%;
-  display: grid;
-  place-items: center;
-  width: 22%;
-  min-width: 52px;
-  height: 9%;
-  min-height: 28px;
-  border: 1px solid rgba(226, 146, 76, 0.24);
-  border-radius: 999px;
-  color: #8a5a2e;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255, 244, 231, 0.56), rgba(226, 146, 76, 0.1) 58%, rgba(226, 146, 76, 0) 100%);
-  box-shadow:
-    0 0 0 3px rgba(226, 146, 76, 0.035),
-    0 0 10px rgba(226, 146, 76, 0.1);
-  transform: translate(-50%, -50%);
-  pointer-events: auto;
-  animation: breatheGlow 2100ms ease-in-out infinite;
-}
-
-.affordance-hit span {
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.58);
-  font-size: 0.64rem;
-  font-weight: 650;
+  background: transparent;
 }
 
 .entry-menu {
   position: absolute;
-  top: 33%;
-  right: 15%;
+  right: 8px;
+  bottom: 10px;
   z-index: 8;
-  min-width: 106px;
-  padding: 4px;
+  min-width: 118px;
+  padding: 7px;
   border: 1px solid rgba(31, 41, 51, 0.08);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.98);
   box-shadow: 0 8px 18px rgba(31, 41, 51, 0.14);
-  transform: translateY(-50%);
   animation: menuIn 180ms ease both;
 }
 
-.entry-menu::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -6px;
-  width: 10px;
-  height: 10px;
-  border-top: 1px solid rgba(31, 41, 51, 0.08);
-  border-right: 1px solid rgba(31, 41, 51, 0.08);
-  background: rgba(255, 255, 255, 0.96);
-  transform: translateY(-50%) rotate(45deg);
+.entry-menu p {
+  margin: 0 0 5px;
+  color: #8b95a1;
+  font-size: 0.72rem;
 }
 
 .entry-menu button {
-  position: relative;
-  z-index: 1;
   width: 100%;
   min-height: 32px;
   border: 0;
@@ -543,6 +495,16 @@ p {
 
 .entry-menu button:hover {
   background: #f6f8fb;
+}
+
+.demo-hint {
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #8b95a1;
+  background: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
 }
 
 .chat-system {
@@ -560,12 +522,6 @@ p {
   background: transparent;
 }
 
-.echo-row {
-  gap: 8px;
-  align-items: flex-start;
-  margin-top: 7px;
-}
-
 .friend-avatar {
   display: grid;
   flex: 0 0 26px;
@@ -580,9 +536,12 @@ p {
   font-weight: 700;
 }
 
-.echo-message .sender-name {
-  margin-bottom: 4px;
-  color: #7a8490;
+.xu-avatar {
+  background: #8ea1bd;
+}
+
+.echo-cluster {
+  margin-top: 14px;
 }
 
 .chat-input {
@@ -826,39 +785,15 @@ p {
   justify-content: center;
 }
 
-@keyframes breatheGlow {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(0.98);
-  }
-
-  50% {
-    opacity: 0.82;
-    transform: translate(-50%, -50%) scale(1.02);
-  }
-}
-
-@keyframes breatheMask {
-  0%,
-  100% {
-    opacity: 0.18;
-  }
-
-  50% {
-    opacity: 0.32;
-  }
-}
-
 @keyframes menuIn {
   from {
     opacity: 0;
-    transform: translateY(-46%) scale(0.98);
+    transform: scale(0.98);
   }
 
   to {
     opacity: 1;
-    transform: translateY(-50%) scale(1);
+    transform: scale(1);
   }
 }
 
@@ -900,7 +835,7 @@ p {
   }
 
   .phone-shell {
-    width: min(372px, 100%);
+    width: min(360px, 100%);
   }
 
   .compare-panel {
@@ -935,21 +870,33 @@ p {
   }
 
   .phone-shell {
-    min-height: 660px;
+    min-height: 704px;
     padding: 8px;
     border-radius: 24px;
   }
 
   .chat-window {
-    min-height: 500px;
+    min-height: 560px;
   }
 
-  .chat-image-wrap {
-    width: min(232px, 74vw);
+  .chat-window.has-echo {
+    min-height: 590px;
+  }
+
+  .chat-image-interactive {
+    width: min(204px, 68vw);
+  }
+
+  .chat-image-input {
+    width: 104px;
+  }
+
+  .chat-image-echo {
+    width: 176px;
   }
 
   .entry-menu {
-    right: 4%;
+    right: 8px;
     min-width: 112px;
   }
 

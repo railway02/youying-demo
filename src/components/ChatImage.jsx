@@ -1,28 +1,34 @@
 import { STATES, assets } from '../data/demoData'
-import AffordanceGlow from './AffordanceGlow'
 import EchoImage from './EchoImage'
 import EntryMenu from './EntryMenu'
 
 function ChatImage({
   state,
-  onGlowClick,
+  onImageClick,
   onActionClick,
   variant = 'interactive',
+  showMenu = false,
 }) {
   const isEchoMessage = variant === 'echo'
-  const showGlow = variant === 'interactive' && state === STATES.AFFORDANCE_DETECTED
-  const showMenu = variant === 'interactive' && state === STATES.FRIEND_CLICKED
-  const showEcho = variant === 'interactive' && state === STATES.ECHO_DONE
+  const canRespond =
+    variant === 'interactive' && state === STATES.AFFORDANCE_DETECTED
 
   return (
     <div className={`chat-image-wrap chat-image-${variant}`}>
-      <img
-        className="chat-image"
-        src={isEchoMessage ? assets.echo : assets.input}
-        alt={isEchoMessage ? '朋友坐在对面的回响图' : '用户发送的生活照片'}
-      />
-      {isEchoMessage ? null : <EchoImage visible={showEcho} />}
-      {showGlow ? <AffordanceGlow onClick={onGlowClick} /> : null}
+      {canRespond ? (
+        <button
+          type="button"
+          className="image-response-button"
+          onClick={onImageClick}
+          aria-label="点击图片回应"
+        >
+          <img className="chat-image" src={assets.input} alt="小许发来的生活照片" />
+        </button>
+      ) : isEchoMessage ? (
+        <EchoImage className="chat-image" />
+      ) : (
+        <img className="chat-image" src={assets.input} alt="小许发来的生活照片" />
+      )}
       {showMenu ? <EntryMenu onActionClick={onActionClick} /> : null}
     </div>
   )

@@ -31,7 +31,7 @@ function App() {
     setDemoState(STATES.IMAGE_SENT)
   }
 
-  const handleGlowClick = () => {
+  const handleImageClick = () => {
     if (demoState === STATES.AFFORDANCE_DETECTED) {
       setDemoState(STATES.FRIEND_CLICKED)
     }
@@ -66,7 +66,7 @@ function App() {
         <JudgePanel state={demoState} />
         <PhoneMock
           state={demoState}
-          onGlowClick={handleGlowClick}
+          onImageClick={handleImageClick}
           onActionClick={handleActionClick}
         />
       </section>
